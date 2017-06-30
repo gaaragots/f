@@ -16,6 +16,15 @@ full_rating_path = 'input/u.data'
 
 log_file_name = 'Experement result'
 
+dbn = UnsupervisedDBN.load(model_path)
+tfidf_model = pkl.load(open(tfidf_model_path, 'rb'))
+tfidf_matrix = pkl.load(open(tfidf_matrix_path, 'rb'))
+
+items = pd.read_csv(items_path, sep=';', encoding='ISO-8859-1')
+items_train, items_test = train_test_split(items, train_size=0.8, random_state=0)
+
+
+
 # def drawCluster(trs_tfidf_matrix,kmeans):
 # 	import numpy as np
 # 	import matplotlib.pyplot as plt
@@ -42,9 +51,6 @@ log_file_name = 'Experement result'
 # 	print sum(pca.explained_variance_ratio_)
 
 def neiber(itemId):
-	items = pd.read_csv(items_path, sep=';', encoding='ISO-8859-1')
-	items_train, items_test = train_test_split(items, train_size=0.8, random_state=0)
-
 	train = items_train.reset_index()
 	from sklearn.metrics.pairwise import cosine_similarity
 
@@ -76,19 +82,14 @@ def neiber(itemId):
 
 @log_to_file(log_file_name)
 def main(tfidfModel=None, tfidfMatrix=None, dbn_model=None, kmeans_model=None):
-	dbn = UnsupervisedDBN.load(model_path)
-
-	tfidf_model = pkl.load(open(tfidf_model_path, 'rb'))
-	tfidf_matrix = pkl.load(open(tfidf_matrix_path, 'rb'))
-
 	trs_tfidf_matrix = dbn.transform(tfidf_matrix.A)
 
 	kmeans = KMeans(n_clusters=5, random_state=0).fit(trs_tfidf_matrix)
 
 	# drawCluster(trs_tfidf_matrix,kmeans)
 
-	items = pd.read_csv(items_path, sep=';', encoding='ISO-8859-1')
-	items_train, items_test = train_test_split(items, train_size=0.8, random_state=0)
+	# items = pd.read_csv(items_path, sep=';', encoding='ISO-8859-1')
+	# items_train, items_test = train_test_split(items, train_size=0.8, random_state=0)
 
 	full_rating = pd.read_csv(full_rating_path, sep='\t')
 	full_rating.columns=['user id','movie id','rating','timestamp']
