@@ -16,30 +16,30 @@ full_rating_path = 'input/u.data'
 
 log_file_name = 'Experement result'
 
-def drawCluster(trs_tfidf_matrix,kmeans):
-	import numpy as np
-	import matplotlib.pyplot as plt
-	from mpl_toolkits.mplot3d import Axes3D
-	from sklearn import decomposition
-	from sklearn import datasets
+# def drawCluster(trs_tfidf_matrix,kmeans):
+# 	import numpy as np
+# 	import matplotlib.pyplot as plt
+# 	from mpl_toolkits.mplot3d import Axes3D
+# 	from sklearn import decomposition
+# 	from sklearn import datasets
 
-	X_norm = (trs_tfidf_matrix - trs_tfidf_matrix.min())/(trs_tfidf_matrix.max() - trs_tfidf_matrix.min())
+# 	X_norm = (trs_tfidf_matrix - trs_tfidf_matrix.min())/(trs_tfidf_matrix.max() - trs_tfidf_matrix.min())
 
-	pca = decomposition.PCA(n_components = 3) #3-dimensional PCA
-	X = pca.fit_transform(X_norm)
+# 	pca = decomposition.PCA(n_components = 3) #3-dimensional PCA
+# 	X = pca.fit_transform(X_norm)
 
-	fig = plt.figure(1, figsize=(4, 3))
-	plt.clf()
-	ax = Axes3D(fig, rect=[0, 0, .95, 1], elev=48, azim=134)
+# 	fig = plt.figure(1, figsize=(4, 3))
+# 	plt.clf()
+# 	ax = Axes3D(fig, rect=[0, 0, .95, 1], elev=48, azim=134)
 
-	plt.cla()
-	labels = kmeans.labels_#est.labels_
+# 	plt.cla()
+# 	labels = kmeans.labels_#est.labels_
 
-	ax.scatter(X[:, 0], X[:, 1], c=labels.astype(np.float))
+# 	ax.scatter(X[:, 0], X[:, 1], c=labels.astype(np.float))
 
-	plt.show()
+# 	plt.show()
 
-	print sum(pca.explained_variance_ratio_)
+# 	print sum(pca.explained_variance_ratio_)
 
 def neiber(itemId):
 	items = pd.read_csv(items_path, sep=';', encoding='ISO-8859-1')
@@ -85,7 +85,7 @@ def main(tfidfModel=None, tfidfMatrix=None, dbn_model=None, kmeans_model=None):
 
 	kmeans = KMeans(n_clusters=5, random_state=0).fit(trs_tfidf_matrix)
 
-	drawCluster(trs_tfidf_matrix,kmeans)
+	# drawCluster(trs_tfidf_matrix,kmeans)
 
 	# items = pd.read_csv(items_path, sep=';', encoding='ISO-8859-1')
 	# items_train, items_test = train_test_split(items, train_size=0.8, random_state=0)
