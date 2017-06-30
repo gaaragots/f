@@ -87,8 +87,8 @@ def main(tfidfModel=None, tfidfMatrix=None, dbn_model=None, kmeans_model=None):
 
 	# drawCluster(trs_tfidf_matrix,kmeans)
 
-	# items = pd.read_csv(items_path, sep=';', encoding='ISO-8859-1')
-	# items_train, items_test = train_test_split(items, train_size=0.8, random_state=0)
+	items = pd.read_csv(items_path, sep=';', encoding='ISO-8859-1')
+	items_train, items_test = train_test_split(items, train_size=0.8, random_state=0)
 
 	full_rating = pd.read_csv(full_rating_path, sep='\t')
 	full_rating.columns=['user id','movie id','rating','timestamp']
